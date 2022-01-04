@@ -17,12 +17,20 @@ class User extends DataMapper
 
     public function insert($row)
     {
-        // return "INSERT INTO `$this->table` (`".implode("', '", array_keys($row))."`) VALUES (?,?,?,?)";
-        // return $row;
         $sql = "INSERT INTO `$this->table` (`".implode("', '", array_keys($row))."`) VALUES (?,?,?)";
         return $sql;
         return self::$db->insert($sql, $row);
     
+    }
+
+    /**
+     * @see Get the User from ID (pk)
+     * @param [INT] $id, PK from table
+     * @return [Array] $user
+     */
+    public function get($id)
+    {
+        return self::$db->fetch("SELECT * FROM `$this->table` WHERE `id` = ?", array($id));
     }
 
     public function setPWD($key, $pass)

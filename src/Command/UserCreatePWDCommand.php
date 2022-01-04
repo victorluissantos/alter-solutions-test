@@ -24,30 +24,25 @@ class UserCreatePWDCommand extends Command
 
     protected function configure():void
     {
-        $this->addArgument('first_name', InputArgument::REQUIRED, 'The first name of the user.');
-        $this->addArgument('last_name', InputArgument::REQUIRED, 'The last name name of the user.');
-        $this->addArgument('mail', InputArgument::REQUIRED, 'The e-mail of the user.');
-        $this->addArgument('age', InputArgument::OPTIONAL, 'The age of the user.');
+        $this->addArgument('password', InputArgument::REQUIRED, 'The password of the user.');
+        $this->addArgument('password_confirmation', InputArgument::REQUIRED, 'The confirmation of password the user.');
+        $this->addArgument('user_id', InputArgument::REQUIRED, 'The id of the user.');;
         $this->setDescription('Allow setting a password for an existing user');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // outputs multiple lines to the console (adding "\n" at the end of each line)
-        $output->writeln([
-            'User Creator',
-            '============',
-            '',
-        ]);
-
-        $output->writeln(True);
-        $output->writeln('Username: '.$input->getArgument('username'));
-        $output->writeln('Whoa!');
-
-        // outputs a message without adding a "\n" at the end of the line
-        $output->write('You are about to ');
-        $output->write('create a user.');
-
         return Command::SUCCESS;
+    }
+
+    /**
+     * @see Check if the input is valid password and id(key) for user
+     * @author Santos L. Victor
+     */
+    public static function validPassword(InputInterface $input) : array
+    {
+        $data = array();
+
+        return [];
     }
 }
