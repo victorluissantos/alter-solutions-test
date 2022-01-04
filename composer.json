@@ -1,0 +1,19 @@
+{
+    "name": "root/alter-solutions",
+    "description": "Desafio PHP",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Santos L. Victor",
+            "email": "victorluissantos@live.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ASPTest\\": "src"
+        }
+    },
+    "require": {
+        "symfony/console": "^5.4"
+    }
+}
