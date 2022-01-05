@@ -75,12 +75,11 @@ class UserCreateCommand extends Command
         }
 
         if (self::isValidEmail($input->getArgument('email'))) {
-            // if(!empty($this->userModel->getbyEmail($input->getArgument('email')))) {
+            if(count($this->userModel->getbyEmail($input->getArgument('email')))==0) {
                 $data['email'] = $input->getArgument('email');
-            // } else {
-            //     $data['errors'][] = 'E-mail already registered';   
-            // }
-            // $data['errors'][] = $this->userModel->getByID(1);
+            } else {
+                $data['errors'][] = 'E-mail already registered';   
+            }
         } else {
             $data['errors'][] = 'The e-mail is not valid!';
 

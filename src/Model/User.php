@@ -27,7 +27,7 @@ class User extends DataMapper
      */
     public function getByID($id)
     {
-        return self::$db->fetchAll("SELECT id FROM users WHERE `id` = '1' limit 1;");//, array($id));
+        return self::$db->fetchAll("SELECT id FROM users WHERE `id` = :id", array($id));
     }
 
     /**
@@ -37,7 +37,7 @@ class User extends DataMapper
      */
     public function getByEmail($email)
     {
-        return self::$db->fetchAll("SELECT id FROM `$this->table` WHERE `email` = ?", array($email));
+        return self::$db->fetchAll("SELECT id FROM `$this->table` WHERE `email` = :email", array($email));
     }
 
     public function setPWD($key, $pass)
