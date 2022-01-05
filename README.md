@@ -1,20 +1,24 @@
 ## Como rodar
-utilize o comando a baixo para iniciar o docker
-1. `docker-compose up -d`
-Acesse o container, primeiro utiliza o cmando a baixo para pegar o container_id do PHP:
-2. `docker ps`
-Depois de ter pego o id do container, utilize o comando a baixo para acessar o container
-3. `docker exec -ti <container_id> sh -c /bin/sh`
 
-Baixe as Dependencias do composer, utilizando o comando a baixo
-1. `composer update`
+1. Utilize o comando abaixo para iniciar o docker:
+`docker-compose up -d`
+
+2. Acesse o container utilizando o comando abaixo para selecionar o **container_id** do PHP:
+`docker ps`
+
+3. Depois de ter selecionado o id do container, utilize o comando abaixo para acessar o container:
+`docker exec -ti <container_id> sh -c /bin/sh`
+
+4. Por fim, baixe as dependências do composer utilizando o comando a seguir:
+`docker exec -ti <container_id> sh -c /bin/sh`
 
 ## Services
-Inserir um novo usuario
-`php app.php user:create victor santos victorluissantos@live.com`
 
-Inserir um novo usuario informando a idade
+1. Use este comando para inserir um novo usuário:
+`docker exec -ti <container_id> sh -c /bin/sh`
+
+2. Use este comando para inserir um novo usuário informando a idade:
 `php app.php user:create victor santos victorluissantos@live.com 30`
 
-Atualizar senha do usuario
+3. Use este comando para atualizar a senha do usuário:
 `php app.php user:create-pwd 2 a1b2.@ a1b2.@`
