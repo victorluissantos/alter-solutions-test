@@ -33,9 +33,7 @@ class UserCreateCommand extends Command
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
-    {
-        $errors = array();
-        
+    {        
         $user = $this->isValid($input);
 
         if (!isset($user['errors'])) {
@@ -44,7 +42,7 @@ class UserCreateCommand extends Command
             $output->writeln($user['id']);
 
             if (!is_null($user['id'])) {
-                $output->writeln($user);
+                $output->writeln(json_encode($user));
             } else {
                 $output->writeln('Have internal error, please contact support!');
             }
@@ -56,7 +54,6 @@ class UserCreateCommand extends Command
 
     /**
      * @see Check if the input is valid object (VO)
-     * @author Santos L. Victor
      */
     public function isValid(InputInterface $input) : array
     {

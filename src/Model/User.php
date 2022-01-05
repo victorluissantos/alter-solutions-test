@@ -27,7 +27,7 @@ class User extends DataMapper
      */
     public function getByID($id)
     {
-        return self::$db->fetchAll("SELECT id FROM users WHERE `id` = :id", array($id));
+        return self::$db->fetch("SELECT * FROM `$this->table` WHERE `id` = ?",array($id));
     }
 
     /**
@@ -40,8 +40,19 @@ class User extends DataMapper
         return self::$db->fetchAll("SELECT id FROM `$this->table` WHERE `email` = :email", array($email));
     }
 
-    public function setPWD($key, $pass)
+    /**
+     * @see Update the password colum
+     * @param [String] $id
+     * @param [String] $passwd
+     */
+    public function setPWD($passwd, $id)
     {
-        self::$db->update("UPDATE `$this->table` SET `password` = '$pass' WHERE `id` = ?", array($pass, $key));
+        $options = [
+           'cost' => 10
+        ];
+
+        $hashed_passwd = password_hash($passwd, PASSWORD_BCRYPT, $options);
+        
+        return self::$db->update("UPDATE `$this->table` SET `password` = :pass WHERE `id` = :id;", array($hashed_passwd, $id));
     }
 }
