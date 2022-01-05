@@ -118,17 +118,17 @@ class PDODb {
 		}
 	}
 
-	public function insert($query, $parameters = array()){
+	public function insert($sql, $parameters = array()){
 		if($this->connected === true){
 			try{
-				$query = $this->connection->prepare($query);
+				$query = $this->connection->prepare($sql);
 				$query->execute($parameters);
 				return $this->connection->lastInsertId();
 			}
 			catch(\PDOException $e){
 				if($this->errors === true){
 					return $this->error($e->getMessage());
-				}else{
+				} else {
 					return false;
 				}
 			}

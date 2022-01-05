@@ -17,10 +17,7 @@ class User extends DataMapper
 
     public function insert($row)
     {
-        $sql = "INSERT INTO `$this->table` (`".implode("', '", array_keys($row))."`) VALUES (?,?,?)";
-        return $sql;
-        return self::$db->insert($sql, $row);
-    
+        return self::$db->insert("INSERT INTO `$this->table` (`".implode("`, `", array_keys($row))."`) VALUES (:".implode(", :", array_keys($row)).")", array_values($row));
     }
 
     /**
@@ -28,9 +25,19 @@ class User extends DataMapper
      * @param [INT] $id, PK from table
      * @return [Array] $user
      */
-    public function get($id)
+    public function getByID($id)
     {
-        return self::$db->fetch("SELECT * FROM `$this->table` WHERE `id` = ?", array($id));
+        return self::$db->fetchAll("SELECT id FROM users WHERE `id` = '1' limit 1;");//, array($id));
+    }
+
+    /**
+     * @see Get the User from Email
+     * @param [INT] $email, Email from table
+     * @return [Array] $user
+     */
+    public function getByEmail($email)
+    {
+        return self::$db->fetchAll("SELECT id FROM `$this->table` WHERE `email` = ?", array($email));
     }
 
     public function setPWD($key, $pass)

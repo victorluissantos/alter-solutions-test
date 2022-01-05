@@ -15,4 +15,4 @@ ou informando uma idade
 `php app.php user:create victor santos victorluissantos@live.com 30`
 
 Atualizar senha do usuario
-`php app.php user:create-pwd victor santos victorluissantos@live.com 30`
+`php app.php user:create-pwd 1 5tgbBGT%..@`

@@ -20,6 +20,7 @@ class UserCreateCommand extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->userModel = new User();
     }
 
     protected function configure():void
@@ -38,17 +39,15 @@ class UserCreateCommand extends Command
         $user = $this->isValid($input);
 
         if (!isset($user['errors'])) {
-            $userModel = new User();
-            $user['id'] = $userModel->insert($user);
-            $output->writeln($user['id']);
             
-            $output->writeln('dsadas');
+            $user['id'] = $this->userModel->insert($user);
+            $output->writeln($user['id']);
 
-            // if (!is_null($user['id'])) {
-            //     $output->writeln($user);
-            // } else {
-            //     $output->writeln('Have internal error, please contact support!');
-            // }
+            if (!is_null($user['id'])) {
+                $output->writeln($user);
+            } else {
+                $output->writeln('Have internal error, please contact support!');
+            }
         } else {
             $output->writeln($user['errors']);
         }
@@ -59,7 +58,7 @@ class UserCreateCommand extends Command
      * @see Check if the input is valid object (VO)
      * @author Santos L. Victor
      */
-    public static function isValid(InputInterface $input) : array
+    public function isValid(InputInterface $input) : array
     {
         $data = array();
 
@@ -76,7 +75,12 @@ class UserCreateCommand extends Command
         }
 
         if (self::isValidEmail($input->getArgument('email'))) {
-            $data['email'] = $input->getArgument('email');
+            // if(!empty($this->userModel->getbyEmail($input->getArgument('email')))) {
+                $data['email'] = $input->getArgument('email');
+            // } else {
+            //     $data['errors'][] = 'E-mail already registered';   
+            // }
+            // $data['errors'][] = $this->userModel->getByID(1);
         } else {
             $data['errors'][] = 'The e-mail is not valid!';
 
